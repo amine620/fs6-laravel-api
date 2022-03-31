@@ -26,7 +26,7 @@ class ArticleRequest extends FormRequest
         return [
             "title"=>"required",
             "description"=>"required",
-            "slug"=>"required",
+            "password"=>'required'
         ];
     }
 }

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('all',[ArticleController::class,"all"]);
 Route::get('all_for_mobile',[ArticleController::class,"all_for_mobile"]);
 Route::get('show/{id}',[ArticleController::class,"show"]);

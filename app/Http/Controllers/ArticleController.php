@@ -10,58 +10,60 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    
+
 
     public function all()
     {
-        
-        $articles=Article::latest()->get();
+
+        $articles = Article::latest()->get();
         return response([
-            'articles'=>ArticleWebResource::collection($articles)
+            'articles' => ArticleWebResource::collection($articles)
         ]);
     }
 
     public function all_for_mobile()
     {
 
-        $articles=Article::latest()->get();
+        $articles = Article::latest()->get();
         return response([
-            'articles'=>ArticleMobileResource::collection($articles)
+            'articles' => ArticleMobileResource::collection($articles)
         ]);
     }
 
 
     public function show($id)
     {
-        $article=Article::findOrFail($id);
-        return response(['article'=>$article]);
+        $article = Article::findOrFail($id);
+        return response(['article' => $article]);
     }
 
     public function destroy($id)
     {
-       Article::findOrFail($id)->delete();
-       return response(['message'=>'article was deleted']);
-
+        Article::findOrFail($id)->delete();
+        return response(['message' => 'article was deleted']);
     }
 
     public function store(ArticleRequest $req)
     {
-         $article= Article::create($req->validated());
+
+        $data = $req->validated();
+        
+        $slug = str_replace(' ', '-', $req->title);
+        $data['slug'] = $slug;
+        $article = Article::create($data);
         return response([
-            'article'=>$article
+            'article' => $article
         ]);
     }
 
-    public function update(ArticleRequest $req,$id)
+    public function update(ArticleRequest $req, $id)
     {
-        $article=Article::find($id);
-        
+        $article = Article::find($id);
+
         $article->update($req->validated());
 
         return response([
-            'article'=>$article
+            'article' => $article
         ]);
     }
-
-  
 }

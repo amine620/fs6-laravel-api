@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('all',[ArticleController::class,"all"]);
-Route::get('all_for_mobile',[ArticleController::class,"all_for_mobile"]);
-Route::get('show/{id}',[ArticleController::class,"show"]);
-Route::delete('destroy/{id}',[ArticleController::class,"destroy"]);
-Route::post('store',[ArticleController::class,"store"]);
-Route::put('update/{id}',[ArticleController::class,"update"]);
+
+     Route::group(['middleware'=>"auth:sanctum"],function(){
+
+         Route::get('all',[ArticleController::class,"all"]);
+         Route::get('all_for_mobile',[ArticleController::class,"all_for_mobile"]);
+         Route::get('show/{id}',[ArticleController::class,"show"]);
+         Route::delete('destroy/{id}',[ArticleController::class,"destroy"]);
+         Route::post('store',[ArticleController::class,"store"]);
+         Route::put('update/{id}',[ArticleController::class,"update"]);
+
+         Route::get('logout',[AuthController::class,'logout']);
+     });
+
+
+
+    Route::post('register',[AuthController::class,'register']);
+    Route::post('login',[AuthController::class,'login']);

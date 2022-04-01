@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-     Route::group(['middleware'=>"auth:sanctum"],function(){
+Route::group(['middleware'=>"auth:sanctum"],function(){
 
          Route::get('all',[ArticleController::class,"all"]);
          Route::get('all_for_mobile',[ArticleController::class,"all_for_mobile"]);
@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Route;
          Route::delete('destroy/{id}',[ArticleController::class,"destroy"]);
          Route::post('store',[ArticleController::class,"store"]);
          Route::put('update/{id}',[ArticleController::class,"update"]);
+
+         Route::get('check',[AuthController::class,"verify_token"]);
 
          Route::get('logout',[AuthController::class,'logout']);
      });
